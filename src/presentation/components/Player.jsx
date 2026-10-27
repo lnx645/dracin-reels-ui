@@ -1,0 +1,64 @@
+import styled from '@emotion/styled'
+import { IconFullscreen, IconPause, IconPlay, IconVolume, IconVolumeOff } from '../../icons.jsx'
+import { SUBTITLE_LINES } from '../../infrastructure/videoSource.js'
+import { usePlayer } from '../hooks/usePlayer.js'
+
+// Player BUKAN modal. Ini elemen video + kontrol yang dipakai halaman
+// rute /watch/:titleId/:episode (WatchPage). Tidak ada backdrop di sini.
+const Wrap = styled.div`position: relative; flex: 1; background: ${(p) => p.theme.colors.black}; display: grid; place-items: center; cursor: pointer;`
+const Video = styled.video`width: 100%; height: 100%; object-fit: cover; background: ${(p) => p.theme.colors.black};`
+const BigPlay = styled.div`
+  position: absolute; width: 84px; height: 84px; border-radius: 50%;
+  background: ${(p) => p.theme.colors.accent}; display: grid; place-items: center; color: ${(p) => p.theme.colors.white};
+  box-shadow: ${(p) => p.theme.shadow.pop};
+`
+const Sub = styled.div`
+  position: absolute; left: ${(p) => p.theme.space.lg}px; right: ${(p) => p.theme.space.lg}px; bottom: 18px; text-align: center;
+  font-size: ${(p) => p.theme.font.base}px; font-weight: 700; line-height: 1.4; color: ${(p) => p.theme.colors.white};
+  text-shadow: 0 2px 6px ${(p) => p.theme.colors.black}; background: ${(p) => p.theme.colors.overlay};
+  padding: ${(p) => p.theme.space.sm}px ${(p) => p.theme.space.md}px; border-radius: ${(p) => p.theme.radius.sm}px;
+`
+const Controls = styled.div`padding: ${(p) => p.theme.space.md}px ${(p) => p.theme.space.lg}px max(${(p) => p.theme.space.lg}px, env(safe-area-inset-bottom)); background: ${(p) => p.theme.colors.bg};`
+const Seek = styled.input`width: 100%; accent-color: ${(p) => p.theme.colors.accent};`
+const Row = styled.div`display: flex; align-items: center; gap: ${(p) => p.theme.space.sm}px; margin-top: ${(p) => p.theme.space.sm}px;`
+const IconBtn = styled.button`
+  width: 44px; height: 44px; min-width: 44px; border-radius: 50%;
+  border: 1px solid ${(p) => p.theme.colors.border}; background: ${(p) => p.theme.colors.overlay}; color: ${(p) => p.theme.colors.white};
+  display: grid; place-items: center;
+`
+const Time = styled.span`font-size: ${(p) => p.theme.font.sm}px; color: ${(p) => p.theme.colors.muted}; font-variant-numeric: tabular-nums;`
+const PillBtn = styled.button`
+  min-height: 40px; padding: 0 ${(p) => p.theme.space.md}px; border-radius: ${(p) => p.theme.radius.pill}px;
+  border: 1px solid ${(p) => p.theme.colors.border}; background: ${(p) => p.active ? p.theme.colors.accent : p.theme.colors.surface};
+  color: ${(p) => p.theme.colors.white}; font-weight: 800;
+`
+const Note = styled.p`color: ${(p) => p.theme.colors.muted}; font-size: ${(p) => p.theme.font.xs}px; line-height: 1.5; margin: ${(p) => p.theme.space.md}px 0 0;`
+
+export default function Player({ src, sourceLabel, onEnded, onProgress }) {
+  const p = usePlayer({ src, onEnded, onProgress })
+  return (
+    <>
+      <Wrap onClick={p.togglePlay}>
+        <Video
+          ref={p.videoRef} src={src} muted={p.muted} playsInline autoPlay
+          onTimeUpdate={p.handleTimeUpdate} onLoadedMetadata={p.onLoaded} onEnded={p.onEnded}
+        />
+        {!p.playing && <BigPlay><IconPlay size={44} /></BigPlay>}
+        {p.showSub && <Sub>{SUBTITLE_LINES[Math.min(2, Math.floor(p.time / 15))]}</Sub>}
+      </Wrap>
+      <Controls>
+        <Seek type="range" min="0" max="100" step="0.1" value={p.progressPct} onChange={(e) => p.seek(Number(e.target.value))} aria-label="Cari posisi video" />
+        <Row>
+          <IconBtn onClick={p.togglePlay} aria-label={p.playing ? 'Jeda' : 'Putar'}>{p.playing ? <IconPause /> : <IconPlay />}</IconBtn>
+          <IconBtn onClick={p.toggleMute} aria-label={p.muted ? 'Nyalakan suara' : 'Bisukan'}>{p.muted ? <IconVolumeOff /> : <IconVolume />}</IconBtn>
+          <Time>{p.timeText} / {p.durText}</Time>
+          <span style={{ marginLeft: 'auto' }} />
+          <PillBtn active={p.showSub} onClick={p.toggleSub}>CC</PillBtn>
+          <PillBtn onClick={p.cycleSpeed}>{p.speed}x</PillBtn>
+          <IconBtn onClick={p.toggleFullscreen} aria-label="Layar penuh"><IconFullscreen /></IconBtn>
+        </Row>
+        <Note>{sourceLabel} — video contoh bebas lisensi; ganti dengan HLS judul asli saat produksi.</Note>
+      </Controls>
+    </>
+  )
+}
