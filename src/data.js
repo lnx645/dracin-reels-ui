@@ -53,6 +53,29 @@ export const FEED = [
   { id: 'kostum-7', titleId: 'kostum', ep: 7, free: false, likes: '91rb', comments: 2033 },
 ];
 
+// Video contoh publik (placeholder produksi — ganti videoUrl ini dengan
+// URL HLS dari Bunny/Cloudflare Stream saat judul asli sudah ada).
+// Video contoh ini hanya untuk membuktikan player benar-benar memutar,
+// mencari, dan lanjut episode — bukan konten dracin asli.
+export const VIDEO_URLS = {
+  ceo: 'https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+  dendam: 'https://storage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4',
+  kostum: 'https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4',
+  romantis: 'https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4',
+}
+
+export const SUBTITLE_LINES = [
+  'Ini subtitle Indonesia contoh — ganti dengan subtitle asli episode.',
+  'Setiap episode berakhir di cliffhanger, supaya penonton lanjut.',
+  'Subtitle bisa dimatikan dari tombol CC di player.',
+]
+
+export const MOCK_COMMENTS = [
+  { user: 'Sari', text: 'Episode ini bikin nagih, lanjut dong!' },
+  { user: 'Dewi', text: 'Plot twist-nya tidak ketebak sama sekali.' },
+  { user: 'Rina', text: 'Sudah nonton sampai episode 5, langsung beli koin.' },
+]
+
 export function titleById(id) {
   return TITLES.find((t) => t.id === id);
 }

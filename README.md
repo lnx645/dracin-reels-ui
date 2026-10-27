@@ -1,30 +1,37 @@
-# DracinReels — UI Only (Vite + React, Mobile-First)
+# DracinReels — Vite + React, Mobile-First, Siap Produksi (Frontend)
 
-UI saja, belum ada backend, video, login, pembayaran, atau iklan.
-Semua data di `src/data.js` adalah data contoh.
+Frontend lengkap untuk web reels drama China. Belum ada backend —
+video, login, pembayaran, dan iklan masih memakai data contoh / localStorage,
+siap diganti dengan API dan HLS asli saat produksi.
 
 ## Jalankan (dev)
 ```bash
-cd dracin-reels-ui
 bun install
 bun run dev
 ```
-Lalu buka alamat yang ditampilkan Vite di browser HP / desktop.
 
-## Build (produksi statis)
+## Build (produksi statis, untuk Vercel)
 ```bash
-bun x vite build
+bun run build
 ```
-Hasilnya di `dist/` — jalankan lewat server HTTP, jangan dibuka langsung
-via `file://` karena modul ES diblokir CORS oleh browser, contoh:
-```bash
-cd dist && python3 -m http.server 8000
-```
+Vercel: Framework Vite, Build Command `npm run build`, Output Directory `dist`.
+Jalankan hasil build lewat server HTTP, jangan langsung `file://`
+(modul ES diblokir CORS oleh browser).
 
-## Yang ada di UI ini
-- Beranda: feed vertikal scroll-snap, 1 reel = 1 layar, aksi suka / komentar / bookmark / bagikan
-- Episode gratis 1–5, episode 6+ terkunci dengan modal Nonton Iklan / 10 Koin (demo, tanpa backend)
-- Detail judul: sinopsis + grid episode 1–10
-- Cari: pencarian + chip genre (CEO, Balas Dendam, Kostum, Romantis)
-- Bookmark, Profil (koin demo 120), bottom nav 4 tab
-- Mobile-first: lebar maks 430px, tombol minimal 44–48px, safe-area bottom nav
+## Yang sudah lengkap di frontend ini
+- Player video asli: play/pause, seek, mute, fullscreen, kecepatan 1x–2x,
+  subtitle Indonesia on/off (CC), lanjut episode otomatis, simpan progress
+- Feed vertikal scroll-snap, detail judul + grid episode, cari + genre,
+  bookmark, profil, komentar (tambah komentar lokal), bagikan (Web Share / salin link)
+- Episode 1–5 gratis, 6+ terkunci: buka dengan iklan (demo) atau 10 koin
+- Semua state penting tersimpan di localStorage: suka, bookmark, unlock, koin, progress
+- Ikon SVG inline semua (tanpa emoji di tombol/nav), poster gradient per genre
+- PWA: manifest + ikon SVG, theme-color gelap, mobile-first max 430px,
+  tombol minimal 44–48px, focus-visible, prefers-reduced-motion
+
+## Yang harus diganti saat produksi asli
+- `src/data.js` → `VIDEO_URLS`: ganti video contoh publik dengan URL HLS
+  dari Bunny Stream / Cloudflare Stream untuk tiap judul
+- `SUBTITLE_LINES` → subtitle / track VTT asli per episode
+- Koin, unlock, komentar, dan login → API backend + pembayaran QRIS
+- Poster gradient → poster / thumbnail video asli

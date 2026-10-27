@@ -1,0 +1,10 @@
+{
+  "name": "DracinReels",
+  "short_name": "DracinReels",
+  "description": "Web reels drama China — UI lengkap, mobile-first",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#0b0b10",
+  "theme_color": "#0b0b10",
+  "icons": [{ "src": "icon.svg", "sizes": "512x512", "type": "image/svg+xml", "purpose": "any" }]
+}
