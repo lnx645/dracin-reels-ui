@@ -11,7 +11,7 @@ const pop = keyframes`
 `
 
 const Rail = styled.div`
-  position: absolute; right: ${(p) => p.theme.space.md}px; bottom: 240px; z-index: 3;
+  position: absolute; right: ${(p) => p.theme.space.md}px; bottom: ${(p) => p.bottom}px; z-index: 3;
   display: flex; flex-direction: column; gap: ${(p) => p.theme.space.lg}px;
 `
 // Tombol aksi sebagai React Aria: ToggleButton untuk like/bookmark
@@ -39,9 +39,9 @@ const Circle = styled.span`
   animation: ${(p) => p.liked ? `${pop} 0.35s ease` : 'none'};
 `
 
-export default function ReelActions({ item, liked, saved, onLike, onComment, onSave, onShare }) {
+export default function ReelActions({ item, liked, saved, onLike, onComment, onSave, onShare, bottom = 240 }) {
   return (
-    <Rail role="group" aria-label="Aksi episode">
+    <Rail role="group" aria-label="Aksi episode" bottom={bottom}>
       <ActToggle isSelected={liked} onChange={onLike} aria-label={liked ? 'Batal suka episode ini' : 'Suka episode ini'}>
         <Circle liked={liked}>{liked ? <IconHeartFilled /> : <IconHeart />}</Circle>
         <small>{formatCount(item.likes)}</small>

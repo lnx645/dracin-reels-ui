@@ -31,3 +31,5 @@ export const IconClock = (p) => <Svg {...p}><circle cx="12" cy="12" r="9" /><pat
 export const IconCheck = (p) => <Svg {...p}><path d="m4 12.5 5 5L20 6.5" /></Svg>
 export const IconSend = (p) => <Svg {...p}><path d="M21 3 10 14" /><path d="M21 3 14 21l-4-8-7-4z" /></Svg>
 export const IconCrown = (p) => <Svg {...p}><path d="M3 18h18M3 8l4 4 5-6 5 6 4-4v10H3z" /></Svg>
+export const IconSettings = (p) => <Svg {...p}><path d="M4 7h10M18 7h2M4 17h4M12 17h8" /><circle cx="16" cy="7" r="2.5" /><circle cx="10" cy="17" r="2.5" /></Svg>
+export const IconNext = (p) => <Svg {...p}><path d="m9 6 6 6-6 6" /><path d="M4 6l6 6-6 6" /></Svg>

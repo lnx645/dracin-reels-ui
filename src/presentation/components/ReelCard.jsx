@@ -108,7 +108,7 @@ export default function ReelCard({ item, state, onComment, onUnlockRequest }) {
   return (
     <Reel>
       <div onClick={handleTap} style={{ position: 'absolute', inset: 0 }}>
-        <PosterFull title={t} size={96} />
+        <PosterFull title={t} size={96} showWord={false} />
       </div>
       <Shade />
       <Progress><i style={{ width: `${item.ep === 1 ? 12 : pct}%` }} /></Progress>

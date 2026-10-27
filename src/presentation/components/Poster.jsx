@@ -15,11 +15,11 @@ const Word = styled.span`
   font-size: ${(p) => p.theme.font.xs}px; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase;
 `
 
-export default function Poster({ title, size = 72, className }) {
+export default function Poster({ title, size = 72, className, showWord = true }) {
   return (
     <Box gradient={title.gradient} className={className}>
       <Initial size={size}>{initialsOf(title.title)}</Initial>
-      <Word>{title.genre}</Word>
+      {showWord && <Word>{title.genre}</Word>}
     </Box>
   )
 }

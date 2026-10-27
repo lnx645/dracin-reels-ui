@@ -83,6 +83,26 @@ src/
   jelas gratis vs terkunci, komentar sebagai sheet, modal unlock jelas
 - Mobile-first max 430px, desktop = kolom HP di tengah, dark theme
 
+## Halaman player — imersif ala TikTok (redesain 2026-10-27)
+`/watch/:titleId/:episode` bukan lagi panel kontrol kaku di bawah video.
+- Video FULL-BLEED vertikal 9:16 (`object-fit: cover`) memenuhi layar,
+  gradasi gelap halus di atas dan bawah supaya teks terbaca.
+- Ketuk video = play/pause; ikon play besar muncul di tengah saat dijeda,
+  dan muncul sebentar (flash) saat mulai memutar.
+- Progress bar tipis di paling bawah (Slider React Aria, bisa di-seek).
+- Kontrol lanjutan (mute, CC, kecepatan 1–2x, fullscreen, waktu) TIDAK
+  permanen: muncul saat video dijeda, atau lewat tombol pengaturan kecil
+  di kanan atas — jadi satu baris pill kecil, bukan tumpukan tombol.
+- Rel aksi kanan (Like, Komentar, Bookmark, Bagikan) duduk di atas Info,
+  double-tap video = hati besar + like (tetap ada).
+- Info kiri bawah duduk di atas subtitle di BottomStack Player: badge
+  genre + episode + rating, judul tebal, sinopsis max 2 baris, tombol
+  Episode Berikutnya yang jelas. Label contoh hanya satu baris kecil
+  "Contoh Mixkit" — teks catatan panjang sudah dihapus dari halaman
+  (detail lengkap tetap di README bagian video contoh di bawah).
+- Poster feed: kata genre pada poster full-screen dihapus (genre sudah
+  ada sebagai pill di Info), jadi tidak ada lagi teks yang tertutup pill.
+
 ## Fitur yang jalan
 Player (play/pause, seek, mute, fullscreen, kecepatan 1-2x, subtitle CC
 on/off, lanjut episode otomatis, simpan progress), feed, detail + grid
