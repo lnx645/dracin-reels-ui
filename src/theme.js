@@ -37,10 +37,13 @@ export const globalStyles = css`
     -webkit-font-smoothing: antialiased;
   }
   button { font: inherit; cursor: pointer; }
-  button:focus-visible, a:focus-visible, input:focus-visible {
+  button:focus-visible, a:focus-visible, input:focus-visible,
+  button[data-focus-visible="true"], a[data-focus-visible="true"] {
     outline: 2px solid ${theme.colors.accent2};
     outline-offset: 2px;
   }
+  /* React Aria: jangan pernah hilangkan outline tanpa ganti — cincin
+     fokus di atas adalah penggantinya, berlaku untuk keyboard Tab. */
   input { font: inherit; }
   a { color: inherit; text-decoration: none; }
 `

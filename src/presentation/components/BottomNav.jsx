@@ -19,7 +19,7 @@ const Item = styled(NavLink)`
 
 export default function BottomNav() {
   return (
-    <Nav>
+    <Nav aria-label="Navigasi utama">
       <Item to="/" end><IconHome /><small>Beranda</small></Item>
       <Item to="/search"><IconSearch /><small>Cari</small></Item>
       <Item to="/saved"><IconBookmark /><small>Bookmark</small></Item>

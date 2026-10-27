@@ -1,4 +1,5 @@
 import styled from '@emotion/styled'
+import { Button } from 'react-aria-components'
 import { Link } from 'react-router-dom'
 import { IconCoin } from '../../icons.jsx'
 
@@ -13,7 +14,7 @@ const Logo = styled(Link)`
   font-size: ${(p) => p.theme.font.title}px; font-weight: 900; letter-spacing: -0.02em;
   span { color: ${(p) => p.theme.colors.accent2}; }
 `
-const CoinPill = styled.button`
+const CoinPill = styled(Button)`
   min-height: ${(p) => p.theme.touch}px; padding: 0 ${(p) => p.theme.space.md}px;
   border-radius: ${(p) => p.theme.radius.pill}px;
   border: 1px solid ${(p) => p.theme.colors.border};
@@ -25,7 +26,8 @@ export default function TopBar({ coins, onCoinClick }) {
   return (
     <Bar>
       <Logo to="/">Dracin<span>Reels</span></Logo>
-      <CoinPill onClick={onCoinClick} aria-label={`Koin kamu ${coins}`}>
+      <CoinPill onPress={onCoinClick} aria-label={`Koin kamu ${coins}`}>
+
         <IconCoin size={18} /> {coins} Koin
       </CoinPill>
     </Bar>

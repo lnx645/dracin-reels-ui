@@ -1,4 +1,5 @@
 import styled from '@emotion/styled'
+import { Button } from 'react-aria-components'
 import { Link } from 'react-router-dom'
 import { FEED, titleById } from '../../infrastructure/seedData.js'
 import { IconCoin, IconUser } from '../../icons.jsx'
@@ -20,7 +21,7 @@ const Stat = styled.div`
   span { color: ${(p) => p.theme.colors.muted}; font-size: ${(p) => p.theme.font.xs}px; }
 `
 const Actions = styled.div`display: flex; gap: ${(p) => p.theme.space.sm}px; flex-wrap: wrap;`
-const BtnPlay = styled.button`
+const BtnPlay = styled(Button)`
   min-height: ${(p) => p.theme.touch}px; padding: 0 ${(p) => p.theme.space.lg}px; border: none; border-radius: ${(p) => p.theme.radius.pill}px;
   background: linear-gradient(135deg, ${(p) => p.theme.colors.accent}, ${(p) => p.theme.colors.accent2});
   color: ${(p) => p.theme.colors.white}; font-weight: 800; display: inline-flex; align-items: center; gap: 6px;
@@ -57,7 +58,7 @@ export default function ProfilePage({ state }) {
         <Stat><b>{state.liked.size}</b><span>Disukai</span></Stat>
       </Stats>
       <Actions>
-        <BtnPlay onClick={() => state.showToast('Beli koin via QRIS / GoPay / DANA (demo UI)')}><IconCoin size={16} /> Beli Koin</BtnPlay>
+        <BtnPlay onPress={() => state.showToast('Beli koin via QRIS / GoPay / DANA (demo UI)')} aria-label="Beli koin"><IconCoin size={16} /> Beli Koin</BtnPlay>
         <BtnGhost to="/">Lanjutkan Nonton</BtnGhost>
       </Actions>
       <H3>Lanjutkan Nonton</H3>

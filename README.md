@@ -1,4 +1,4 @@
-# DracinReels — Vite + React, Mobile-First, Clean Architecture + Emotion + Router
+# DracinReels — Vite + React, Mobile-First, Clean Architecture + Emotion + Router + React Aria
 
 Frontend lengkap untuk web reels drama China. Belum ada backend —
 video, login, pembayaran, dan iklan masih memakai data contoh / localStorage,
@@ -53,6 +53,8 @@ src/
       TitleCard.jsx DetailSheet.jsx CommentsSheet.jsx UnlockModal.jsx
       Player.jsx              # elemen video + kontrol (dipakai WatchPage, BUKAN modal)
       Toast.jsx
+      aria.jsx                # primitif React Aria bersama: overlay/modal sheet
+                              # + Label yang hanya dibaca screen reader
     pages/
       FeedPage.jsx SearchPage.jsx SavedPage.jsx ProfilePage.jsx
       TitlePage.jsx WatchPage.jsx
@@ -87,6 +89,33 @@ on/off, lanjut episode otomatis, simpan progress), feed, detail + grid
 episode, cari + genre, bookmark, profil + Lanjutkan Nonton, komentar +
 tambah komentar, bagikan (Web Share / salin link), unlock iklan/koin demo,
 localStorage untuk suka/bookmark/unlock/koin/progress.
+
+## Aksesibilitas: React Aria Components (standar, bukan atribut manual)
+Versi: `react-aria-components@1.22.1`. Semua styling React Aria lewat
+Emotion + token `theme.js` — tidak ada file CSS terpisah, desain TikTok
+tidak berubah.
+
+| Elemen | Komponen React Aria | Yang didapat otomatis |
+|---|---|---|
+| Tombol aksi, play, mute, fullscreen, kecepatan, tutup, kembali, beli koin, iklan, nanti | `Button` (onPress) | Keyboard Enter/Space, focus-visible, press state |
+| Like, bookmark, subtitle CC, chip genre | `ToggleButton` (isSelected) | `aria-pressed`, status terpilih terbaca screen reader |
+| Sheet komentar | `ModalOverlay` + `Modal` + `Dialog` | Focus trap, Escape menutup, klik luar menutup, role dialog + aria-label |
+| Modal unlock | `ModalOverlay` + `Modal` + `Dialog` | Sama seperti di atas |
+| Pencarian | `SearchField` + `Label` (visually hidden) + `Input` | Accessible name, keyboard, semantics field pencarian |
+| Input komentar | `TextField` + `Label` (visually hidden) + `Input` | Accessible name, keyboard |
+| Seek player | `Slider` + `SliderTrack` + `SliderThumb` | Role slider, nilai 0–100, tombol panah keyboard |
+
+Bukan React Aria (dengan alasan):
+- Navigasi (BottomNav, kartu judul, tombol Tonton/Daftar Episode) tetap
+  `NavLink`/`Link` react-router — itu elemen link, bukan tombol, dan
+  `NavLink` sudah memberi `aria-current="page"` otomatis saat aktif.
+- Elemen `<video>` tetap native — tidak ada komponen video di React Aria.
+- Area double-tap di ReelCard dan area video di Player hanya untuk
+  mouse/sentuh; jalur aksesibelnya selalu ada lewat tombol Suka dan
+  tombol Putar yang memakai React Aria.
+- Focus-visible: tidak pernah dihilangkan tanpa ganti — cincin outline
+  dari token theme berlaku untuk `:focus-visible` maupun
+  `data-focus-visible="true"` bawaan React Aria (lihat `theme.js`).
 
 ## Video contoh — bebas lisensi (bukan drama asli)
 Bukan cuplikan drama China / film / konten berhak cipta. Footage stok

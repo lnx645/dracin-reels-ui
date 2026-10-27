@@ -1,5 +1,6 @@
 import { keyframes } from '@emotion/react'
 import styled from '@emotion/styled'
+import { Button } from 'react-aria-components'
 import { useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { IconCoin, IconLock, IconPlay, IconStar } from '../../icons.jsx'
@@ -71,11 +72,11 @@ const LockedBox = styled.div`
 `
 const LockedTitle = styled.div`font-weight: 900; margin-bottom: 4px; display: flex; align-items: center; gap: 6px;`
 const LockedText = styled.p`margin: 0 0 ${(p) => p.theme.space.sm}px; font-size: ${(p) => p.theme.font.sm}px; color: ${(p) => p.theme.colors.muted}; line-height: 1.5;`
-const BtnAd = styled.button`
+const BtnAd = styled(Button)`
   min-height: 44px; padding: 0 ${(p) => p.theme.space.md}px; border: none; border-radius: ${(p) => p.theme.radius.pill}px;
   background: ${(p) => p.theme.colors.white}; color: ${(p) => p.theme.colors.black}; font-weight: 800;
 `
-const BtnCoin = styled.button`
+const BtnCoin = styled(Button)`
   min-height: 44px; padding: 0 ${(p) => p.theme.space.md}px; border: none; border-radius: ${(p) => p.theme.radius.pill}px;
   background: ${(p) => p.theme.colors.accent}; color: ${(p) => p.theme.colors.white}; font-weight: 800;
   display: inline-flex; align-items: center; gap: 6px;
@@ -133,8 +134,8 @@ export default function ReelCard({ item, state, onComment, onUnlockRequest }) {
             <LockedTitle><IconLock size={16} /> Episode terkunci</LockedTitle>
             <LockedText>Episode 1–5 gratis. Buka episode ini dengan iklan atau koin.</LockedText>
             <Row>
-              <BtnAd onClick={() => onUnlockRequest(item)}>Nonton Iklan</BtnAd>
-              <BtnCoin onClick={() => {
+              <BtnAd onPress={() => onUnlockRequest(item)} aria-label={`Buka Episode ${item.ep} dengan iklan`}>Nonton Iklan</BtnAd>
+              <BtnCoin onPress={() => {
                 if (!state.unlockWithCoins(item)) { state.showToast('Koin tidak cukup — beli koin dulu'); return }
                 state.showToast(`Episode terbuka! −${UNLOCK_COIN_COST} koin`)
               }}><IconCoin size={16} /> {UNLOCK_COIN_COST} Koin</BtnCoin>
